@@ -324,7 +324,7 @@ int Demo :: run() {
         
         glViewport(0, 0, width, height);
         
-        GLfloat anim = (sin(glfwGetTime()) / 2) + 0.5; // (sin(glfwGetTime()) / 5) + 0.5 - 0.3
+        GLfloat anim = (sin(glfwGetTime()) / 8) + 0.5; // (sin(glfwGetTime()) / 5) + 0.5 - 0.3
         /*
         // Scale texture
         
