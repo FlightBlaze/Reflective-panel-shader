@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/shadersandbox.dir/demo.cc.o CMakeFiles/shadersandbox.dir/main.cc.o CMakeFiles/shadersandbox.dir/shader.cc.o CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o  -o shadersandbox /usr/lib/libOpenGL.so /usr/lib/libGLEW.so -lglfw -pthread 

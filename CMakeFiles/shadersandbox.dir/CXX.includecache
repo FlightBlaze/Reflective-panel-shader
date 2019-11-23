@@ -1,0 +1,82 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/blaze/User Experience — First Look/Mirror shader/demo.cc
+demo.h
+/home/blaze/User Experience — First Look/Mirror shader/demo.h
+GL/glew.h
+-
+GLFW/glfw3.h
+-
+iostream
+-
+GL/gl.h
+-
+cstdlib
+-
+cstdio
+-
+cmath
+-
+shader.h
+/home/blaze/User Experience — First Look/Mirror shader/shader.h
+third_party/stb_image/stb_image.h
+/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.h
+glm/glm.hpp
+-
+glm/gtc/matrix_transform.hpp
+-
+glm/gtc/type_ptr.hpp
+-
+
+/home/blaze/User Experience — First Look/Mirror shader/demo.h
+
+/home/blaze/User Experience — First Look/Mirror shader/shader.h
+string
+-
+fstream
+-
+sstream
+-
+iostream
+-
+GL/glew.h
+-
+
+/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.h
+stb_image.h
+/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+

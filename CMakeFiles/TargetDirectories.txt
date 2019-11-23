@@ -1,0 +1,7 @@
+/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/install/strip.dir
+/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/install/local.dir
+/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/edit_cache.dir
+/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/shadersandbox.dir
+/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/rebuild_cache.dir
+/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/list_install_components.dir
+/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/install.dir
