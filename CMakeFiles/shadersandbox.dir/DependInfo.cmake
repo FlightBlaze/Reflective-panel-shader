@@ -5,7 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.c" "/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o"
+  "/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.c" "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
@@ -14,9 +14,9 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "."
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/blaze/User Experience — First Look/Mirror shader/demo.cc" "/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/shadersandbox.dir/demo.cc.o"
-  "/home/blaze/User Experience — First Look/Mirror shader/main.cc" "/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/shadersandbox.dir/main.cc.o"
-  "/home/blaze/User Experience — First Look/Mirror shader/shader.cc" "/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/shadersandbox.dir/shader.cc.o"
+  "/home/blaze/User Experience — First Look/Reflective panel shader/demo.cc" "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles/shadersandbox.dir/demo.cc.o"
+  "/home/blaze/User Experience — First Look/Reflective panel shader/main.cc" "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles/shadersandbox.dir/main.cc.o"
+  "/home/blaze/User Experience — First Look/Reflective panel shader/shader.cc" "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles/shadersandbox.dir/shader.cc.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

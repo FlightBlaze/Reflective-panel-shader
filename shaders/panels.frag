@@ -9,9 +9,15 @@ uniform int height;
 uniform int width;
 uniform float anim;
 
+const int panelHeight = 32; // in pixels
+
 void main() {
 	vec2 ruv = UV;
 	float ratio = float(height) / float(pageHeight);
-	ruv.y = ruv.y * ratio - ratio - anim + anim / (float(pageHeight) / float(height));
+
+	// scrolling animation
+	ruv.y = ruv.y * ratio - ratio - anim
+		+ anim / (float(pageHeight) / float(height));
+
 	color = texture(texture0, ruv);
 }

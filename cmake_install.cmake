@@ -1,4 +1,4 @@
-# Install script for directory: /home/blaze/User Experience — First Look/Mirror shader
+# Install script for directory: /home/blaze/User Experience — First Look/Reflective panel shader
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/shadersandbox"
          RPATH "")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/blaze/User Experience — First Look/Mirror shader/shadersandbox")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/blaze/User Experience — First Look/Reflective panel shader/shadersandbox")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/shadersandbox" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/shadersandbox")
     if(CMAKE_INSTALL_DO_STRIP)
@@ -61,5 +61,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/blaze/User Experience — First Look/Mirror shader/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/blaze/User Experience — First Look/Reflective panel shader/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

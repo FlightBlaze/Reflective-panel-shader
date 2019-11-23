@@ -7,11 +7,11 @@ C_FLAGS =   -pthread
 
 C_DEFINES = 
 
-C_INCLUDES = -I"/home/blaze/User Experience — First Look/Mirror shader/." 
+C_INCLUDES = -I"/home/blaze/User Experience — First Look/Reflective panel shader/." 
 
 CXX_FLAGS =   -pthread
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/home/blaze/User Experience — First Look/Mirror shader/." 
+CXX_INCLUDES = -I"/home/blaze/User Experience — First Look/Reflective panel shader/." 
 

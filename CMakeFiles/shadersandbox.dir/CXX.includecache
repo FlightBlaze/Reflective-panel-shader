@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/blaze/User Experience — First Look/Mirror shader/demo.cc
+/home/blaze/User Experience — First Look/Reflective panel shader/demo.cc
 demo.h
-/home/blaze/User Experience — First Look/Mirror shader/demo.h
+/home/blaze/User Experience — First Look/Reflective panel shader/demo.h
 GL/glew.h
 -
 GLFW/glfw3.h
@@ -24,9 +24,9 @@ cstdio
 cmath
 -
 shader.h
-/home/blaze/User Experience — First Look/Mirror shader/shader.h
+/home/blaze/User Experience — First Look/Reflective panel shader/shader.h
 third_party/stb_image/stb_image.h
-/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.h
+/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.h
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
@@ -34,9 +34,9 @@ glm/gtc/matrix_transform.hpp
 glm/gtc/type_ptr.hpp
 -
 
-/home/blaze/User Experience — First Look/Mirror shader/demo.h
+/home/blaze/User Experience — First Look/Reflective panel shader/demo.h
 
-/home/blaze/User Experience — First Look/Mirror shader/shader.h
+/home/blaze/User Experience — First Look/Reflective panel shader/shader.h
 string
 -
 fstream
@@ -48,9 +48,9 @@ iostream
 GL/glew.h
 -
 
-/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.h
+/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.h
 stb_image.h
-/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.h
+/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.h
 stdio.h
 -
 stdlib.h

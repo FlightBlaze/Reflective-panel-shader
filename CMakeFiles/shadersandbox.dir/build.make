@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/blaze/User Experience — First Look/Mirror shader"
+CMAKE_SOURCE_DIR = "/home/blaze/User Experience — First Look/Reflective panel shader"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/blaze/User Experience — First Look/Mirror shader"
+CMAKE_BINARY_DIR = "/home/blaze/User Experience — First Look/Reflective panel shader"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/shadersandbox.dir/depend.make
@@ -59,55 +59,55 @@ include CMakeFiles/shadersandbox.dir/flags.make
 
 CMakeFiles/shadersandbox.dir/demo.cc.o: CMakeFiles/shadersandbox.dir/flags.make
 CMakeFiles/shadersandbox.dir/demo.cc.o: demo.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/shadersandbox.dir/demo.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/shadersandbox.dir/demo.cc.o -c "/home/blaze/User Experience — First Look/Mirror shader/demo.cc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/shadersandbox.dir/demo.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/shadersandbox.dir/demo.cc.o -c "/home/blaze/User Experience — First Look/Reflective panel shader/demo.cc"
 
 CMakeFiles/shadersandbox.dir/demo.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/shadersandbox.dir/demo.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/blaze/User Experience — First Look/Mirror shader/demo.cc" > CMakeFiles/shadersandbox.dir/demo.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/blaze/User Experience — First Look/Reflective panel shader/demo.cc" > CMakeFiles/shadersandbox.dir/demo.cc.i
 
 CMakeFiles/shadersandbox.dir/demo.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/shadersandbox.dir/demo.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/blaze/User Experience — First Look/Mirror shader/demo.cc" -o CMakeFiles/shadersandbox.dir/demo.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/blaze/User Experience — First Look/Reflective panel shader/demo.cc" -o CMakeFiles/shadersandbox.dir/demo.cc.s
 
 CMakeFiles/shadersandbox.dir/main.cc.o: CMakeFiles/shadersandbox.dir/flags.make
 CMakeFiles/shadersandbox.dir/main.cc.o: main.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/shadersandbox.dir/main.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/shadersandbox.dir/main.cc.o -c "/home/blaze/User Experience — First Look/Mirror shader/main.cc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/shadersandbox.dir/main.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/shadersandbox.dir/main.cc.o -c "/home/blaze/User Experience — First Look/Reflective panel shader/main.cc"
 
 CMakeFiles/shadersandbox.dir/main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/shadersandbox.dir/main.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/blaze/User Experience — First Look/Mirror shader/main.cc" > CMakeFiles/shadersandbox.dir/main.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/blaze/User Experience — First Look/Reflective panel shader/main.cc" > CMakeFiles/shadersandbox.dir/main.cc.i
 
 CMakeFiles/shadersandbox.dir/main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/shadersandbox.dir/main.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/blaze/User Experience — First Look/Mirror shader/main.cc" -o CMakeFiles/shadersandbox.dir/main.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/blaze/User Experience — First Look/Reflective panel shader/main.cc" -o CMakeFiles/shadersandbox.dir/main.cc.s
 
 CMakeFiles/shadersandbox.dir/shader.cc.o: CMakeFiles/shadersandbox.dir/flags.make
 CMakeFiles/shadersandbox.dir/shader.cc.o: shader.cc
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/shadersandbox.dir/shader.cc.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/shadersandbox.dir/shader.cc.o -c "/home/blaze/User Experience — First Look/Mirror shader/shader.cc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/shadersandbox.dir/shader.cc.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/shadersandbox.dir/shader.cc.o -c "/home/blaze/User Experience — First Look/Reflective panel shader/shader.cc"
 
 CMakeFiles/shadersandbox.dir/shader.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/shadersandbox.dir/shader.cc.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/blaze/User Experience — First Look/Mirror shader/shader.cc" > CMakeFiles/shadersandbox.dir/shader.cc.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/home/blaze/User Experience — First Look/Reflective panel shader/shader.cc" > CMakeFiles/shadersandbox.dir/shader.cc.i
 
 CMakeFiles/shadersandbox.dir/shader.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/shadersandbox.dir/shader.cc.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/blaze/User Experience — First Look/Mirror shader/shader.cc" -o CMakeFiles/shadersandbox.dir/shader.cc.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/home/blaze/User Experience — First Look/Reflective panel shader/shader.cc" -o CMakeFiles/shadersandbox.dir/shader.cc.s
 
 CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o: CMakeFiles/shadersandbox.dir/flags.make
 CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o: third_party/stb_image/stb_image.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o   -c "/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.c"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.o   -c "/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.c"
 
 CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.c" > CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.c" > CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.i
 
 CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/blaze/User Experience — First Look/Mirror shader/third_party/stb_image/stb_image.c" -o CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.c" -o CMakeFiles/shadersandbox.dir/third_party/stb_image/stb_image.c.s
 
 # Object files for target shadersandbox
 shadersandbox_OBJECTS = \
@@ -127,7 +127,7 @@ shadersandbox: CMakeFiles/shadersandbox.dir/build.make
 shadersandbox: /usr/lib/libOpenGL.so
 shadersandbox: /usr/lib/libGLEW.so
 shadersandbox: CMakeFiles/shadersandbox.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable shadersandbox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable shadersandbox"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/shadersandbox.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -140,6 +140,6 @@ CMakeFiles/shadersandbox.dir/clean:
 .PHONY : CMakeFiles/shadersandbox.dir/clean
 
 CMakeFiles/shadersandbox.dir/depend:
-	cd "/home/blaze/User Experience — First Look/Mirror shader" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/blaze/User Experience — First Look/Mirror shader" "/home/blaze/User Experience — First Look/Mirror shader" "/home/blaze/User Experience — First Look/Mirror shader" "/home/blaze/User Experience — First Look/Mirror shader" "/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles/shadersandbox.dir/DependInfo.cmake" --color=$(COLOR)
+	cd "/home/blaze/User Experience — First Look/Reflective panel shader" && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" "/home/blaze/User Experience — First Look/Reflective panel shader" "/home/blaze/User Experience — First Look/Reflective panel shader" "/home/blaze/User Experience — First Look/Reflective panel shader" "/home/blaze/User Experience — First Look/Reflective panel shader" "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles/shadersandbox.dir/DependInfo.cmake" --color=$(COLOR)
 .PHONY : CMakeFiles/shadersandbox.dir/depend
 

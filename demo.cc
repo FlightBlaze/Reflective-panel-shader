@@ -182,9 +182,9 @@ int Demo :: run() {
     
     // Load shaders
 
-    Shader mirrorShader(
-        "./shaders/mirror.vert",
-        "./shaders/mirror.frag"
+    Shader panelShader(
+        "./shaders/panels.vert",
+        "./shaders/panels.frag"
     );
 
     /*
@@ -452,16 +452,16 @@ int Demo :: run() {
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0, 0, 0, 0);
         
-        mirrorShader.use();
+        panelShader.use();
         
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texPage);
-        glUniform1i(glGetUniformLocation(mirrorShader.program, "texture0"), 0);
+        glUniform1i(glGetUniformLocation(panelShader.program, "texture0"), 0);
 
-	glUniform1i(glGetUniformLocation(mirrorShader.program, "pageHeight"), pageHeight);
-	glUniform1i(glGetUniformLocation(mirrorShader.program, "height"), height);
-        glUniform1i(glGetUniformLocation(mirrorShader.program, "width"), width);
-        glUniform1f(glGetUniformLocation(mirrorShader.program, "anim"), anim);
+		glUniform1i(glGetUniformLocation(panelShader.program, "pageHeight"), pageHeight);
+		glUniform1i(glGetUniformLocation(panelShader.program, "height"), height);
+        glUniform1i(glGetUniformLocation(panelShader.program, "width"), width);
+        glUniform1f(glGetUniformLocation(panelShader.program, "anim"), anim);
 
         /*
         glActiveTexture(GL_TEXTURE1);

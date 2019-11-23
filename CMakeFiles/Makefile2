@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/blaze/User Experience — First Look/Mirror shader"
+CMAKE_SOURCE_DIR = "/home/blaze/User Experience — First Look/Reflective panel shader"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/blaze/User Experience — First Look/Mirror shader"
+CMAKE_BINARY_DIR = "/home/blaze/User Experience — First Look/Reflective panel shader"
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,7 +74,7 @@ clean: CMakeFiles/shadersandbox.dir/clean
 CMakeFiles/shadersandbox.dir/all:
 	$(MAKE) -f CMakeFiles/shadersandbox.dir/build.make CMakeFiles/shadersandbox.dir/depend
 	$(MAKE) -f CMakeFiles/shadersandbox.dir/build.make CMakeFiles/shadersandbox.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" --progress-num=1,2,3,4,5 "Built target shadersandbox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" --progress-num=1,2,3,4,5 "Built target shadersandbox"
 .PHONY : CMakeFiles/shadersandbox.dir/all
 
 # Include target in all.
@@ -84,9 +84,9 @@ all: CMakeFiles/shadersandbox.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/shadersandbox.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" 5
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" 5
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/shadersandbox.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/blaze/User Experience — First Look/Mirror shader/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles" 0
 .PHONY : CMakeFiles/shadersandbox.dir/rule
 
 # Convenience name for target.
