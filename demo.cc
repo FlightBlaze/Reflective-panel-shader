@@ -456,11 +456,11 @@ int Demo :: run() {
         
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texPage);
-        glUniform1i(glGetUniformLocation(panelShader.program, "texture0"), 0);
+        glUniform1i(glGetUniformLocation(panelShader.program, "tex0"), 0);
 
-		glUniform1i(glGetUniformLocation(panelShader.program, "pageHeight"), pageHeight);
-		glUniform1i(glGetUniformLocation(panelShader.program, "height"), height);
-        glUniform1i(glGetUniformLocation(panelShader.program, "width"), width);
+		glUniform1f(glGetUniformLocation(panelShader.program, "pageH"), pageHeight);
+		glUniform1f(glGetUniformLocation(panelShader.program, "height"), height);
+        glUniform1f(glGetUniformLocation(panelShader.program, "width"), width);
         glUniform1f(glGetUniformLocation(panelShader.program, "anim"), anim);
 
         /*
