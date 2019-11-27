@@ -20,12 +20,33 @@ uniform sampler2D tex0;
 uniform vec2 resolution;
 uniform vec2 ksize;
 
+// panel height from 0 to 1
+const float panelH = 0.075;
+
 vec4 blur5(vec2 direction) {
-  vec4 col = vec4(0.0);
-  vec2 off1 = vec2(1.3333333333333333) * direction;
-  col += texture2D(tex0, UV) * 0.29411764705882354;
-  col += texture2D(tex0, UV + (off1 / resolution)) * 0.35294117647058826;
-  col += texture2D(tex0, UV - (off1 / resolution)) * 0.35294117647058826;
+
+	direction *= vec2(UV.y);
+
+	/* these magic numbers are probably
+		 calculated using http://dev.theomader.com/
+		 gaussian-kernel-calculator
+	*/
+  vec2 off1 = vec2(1.3333333333333333)
+		* direction;
+
+	/* this code in not mine and i don't know
+		 what does this this variable mean */
+	vec2 division = off1 / resolution;
+
+  vec4 col = texture(tex0, UV)
+		* 0.29411764705882354;
+	
+  col += texture(tex0, UV + division)
+		* 0.35294117647058826;
+
+  col += texture(tex0, UV - division)
+		* 0.35294117647058826;
+	
   return col; 
 }
 

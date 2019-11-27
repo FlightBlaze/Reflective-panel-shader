@@ -110,6 +110,8 @@ unsigned Demo :: createTexture(int width, int height) {
     glGenTextures(1, &tex);
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -161,8 +163,10 @@ int Demo :: run() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    
-    m_window = glfwCreateWindow(360, 670, "Demo", 0, 0);
+  
+		const int owidth = 360, oheight = 760;
+
+    m_window = glfwCreateWindow(owidth, oheight, "Demo", 0, 0);
     
     glfwSetKeyCallback(m_window, key_callback);
     glfwMakeContextCurrent(m_window);
@@ -308,14 +312,14 @@ int Demo :: run() {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texWithPanels);
         glUniform1i(glGetUniformLocation(frostShader.program, "tex0"), 0);
-				glUniform2f(glGetUniformLocation(frostShader.program, "resolution"), width, height);
+				glUniform2f(glGetUniformLocation(frostShader.program, "resolution"), owidth, oheight);
         
         glBindVertexArray(quadVAO);
 
-				const int iterations = 7;
+				const int iterations = 17;
 
 				for(int i = 0; i < iterations; i++) {
-					float radius = (iterations - i - 1) * anim;
+					float radius = iterations - i - 1;
 					glUniform2f(glGetUniformLocation(frostShader.program, "ksize"),
 							i % 2 == 0 ? radius : 0,
 							i % 2 == 0 ? 0 : radius
