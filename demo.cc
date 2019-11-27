@@ -179,45 +179,7 @@ int Demo :: run() {
     
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
-    
-    // Load shaders
-
-    Shader panelShader(
-        "./shaders/panels.vert",
-        "./shaders/panels.frag"
-    );
-
-    /*
-    Shader scaleShader(
-        "./shaders/scale.vert",
-        "./shaders/scale.frag"
-    );
-    
-    Shader normalShader(
-        "./shaders/blending/normal.vert",
-        "./shaders/blending/normal.frag"
-    );
-    
-    Shader adheredShader(
-        "./shaders/peel/adhered.vert",
-        "./shaders/peel/adhered.frag"
-    );
-    
-    Shader unstuckShader(
-        "./shaders/peel/unstuck.vert",
-        "./shaders/peel/unstuck.frag"
-    );
-    
-    Shader genieShader(
-        "./shaders/genie.vert",
-        "./shaders/genie.frag"
-    );
-    
-    Shader foldShader(
-        "./shaders/peel/fold.vert",
-        "./shaders/peel/fold.frag"
-    );
-    */
+   
     // Create buffers and array
     
     GLuint vertexBufferObject, vertexArrayObject, elementBufferObject;
@@ -259,31 +221,11 @@ int Demo :: run() {
     GLuint texPage;
     GLint pageWidth, pageHeight, pageBytesPerPixel;
     texPage = loadImageAndPutDetails(
-	"./resources/page.png",
-	&pageWidth,
-	&pageHeight,
-	&pageBytesPerPixel
+		"./resources/page.png",
+		&pageWidth,
+		&pageHeight,
+		&pageBytesPerPixel
     );
-    
-    // Framebuffers and textures
-    
-    unsigned int fbScaled = 0,
-                texScaled = 0;
-    
-    unsigned int fbAdhered = 0,
-                texAdhered = 0;
-   
-    unsigned int fbUnstuck = 0,
-                texUnstuck = 0;
-                
-    unsigned int fbCombined = 0,
-                texCombined = 0;
-                
-    unsigned int fbGenie = 0,
-                texGenie = 0;
-                
-    unsigned int fbMain = 0,
-                texMain = 0;
     
     // screen VAO
     
@@ -297,7 +239,29 @@ int Demo :: run() {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+   
+    // Load shaders
+		
+    Shader panelShader(
+        "./shaders/panels.vert",
+        "./shaders/panels.frag"
+    );
+		
+		Shader frostShader(
+        "./shaders/frost.vert",
+        "./shaders/frost.frag"
+    );
+		
+		Shader normalShader(
+        "./shaders/blending/normal.vert",
+        "./shaders/blending/normal.frag"
+    );
+
+		// Framebuffers and textures
     
+    unsigned int fbWithPanels = 0,
+                texWithPanels = 0;
+
     // Main cycle
     
     int rwidth = 0, rheight = 0;
@@ -314,141 +278,16 @@ int Demo :: run() {
             rheight = height;
             rwidth = width;
             
-            recreateFramebuffer(fbScaled, texScaled, width, height);
-            recreateFramebuffer(fbAdhered, texAdhered, width, height);
-            recreateFramebuffer(fbUnstuck, texUnstuck, width, height);
-            recreateFramebuffer(fbCombined, texCombined, width, height);
-            recreateFramebuffer(fbGenie, texGenie, width, height);
-            recreateFramebuffer(fbMain, texMain, width, height);
+            recreateFramebuffer(fbWithPanels, texWithPanels, width, height);
         }
         
         glViewport(0, 0, width, height);
         
-        GLfloat anim = (sin(glfwGetTime()) / 8) + 0.5; // (sin(glfwGetTime()) / 5) + 0.5 - 0.3
-        /*
-        // Scale texture
-        
-        glBindFramebuffer(GL_FRAMEBUFFER, fbScaled);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
-        
-        scaleShader.use();
-        
-        glUniform1f(glGetUniformLocation(scaleShader.program, "anim"), anim);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture0);
-        glBindVertexArray(quadVAO);
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        // Adhered shader effect
-        
-        glBindFramebuffer(GL_FRAMEBUFFER, fbAdhered);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
-        
-        adheredShader.use();
-        
-        // Bind textures
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texScaled);
-        glUniform1i(glGetUniformLocation(adheredShader.program, "texture0"), 0);
-        
-        // Push width and height
-        
-        glUniform1i(glGetUniformLocation(adheredShader.program, "height"), height);
-        glUniform1i(glGetUniformLocation(adheredShader.program, "width"), width);
-        
-        // Animate
-        
-        glUniform1f(glGetUniformLocation(adheredShader.program, "anim"), anim);
-        
-        // Render
-        
-        glBindVertexArray(vertexArrayObject);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        glBindVertexArray(0);
-        
-        // Unstuck shader effect
-        
-        glBindFramebuffer(GL_FRAMEBUFFER, fbUnstuck);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
-        
-        unstuckShader.use();
-        
-        glUniform1i(glGetUniformLocation(unstuckShader.program, "height"), height);
-        glUniform1i(glGetUniformLocation(unstuckShader.program, "width"), width);
-        glUniform1f(glGetUniformLocation(unstuckShader.program, "anim"), anim);
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texScaled);
-        glUniform1i(glGetUniformLocation(unstuckShader.program, "texUnstuck"), 0);
-        
-        glBindVertexArray(quadVAO);
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        
-        // Blend two textures
-        
-        glBindFramebuffer(GL_FRAMEBUFFER, fbCombined);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
-        
-        normalShader.use();
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texAdhered);
-        glUniform1i(glGetUniformLocation(normalShader.program, "texDst"), 0);
-        
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texUnstuck);
-        glUniform1i(glGetUniformLocation(normalShader.program, "texSrc"), 1);
-        
-        glBindVertexArray(quadVAO);
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        // Make fold more skeuomorphistic
+        GLfloat anim = (sin(glfwGetTime()) / 2) + 0.5;
        
-        glBindFramebuffer(GL_FRAMEBUFFER, fbMain);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
-        
-        foldShader.use();
-        
-        glUniform1i(glGetUniformLocation(foldShader.program, "height"), height);
-        glUniform1i(glGetUniformLocation(foldShader.program, "width"), width);
-        glUniform1f(glGetUniformLocation(foldShader.program, "anim"), anim);
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texCombined);
-        glBindVertexArray(quadVAO);
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        // Genie shader effect
-       
-        glBindFramebuffer(GL_FRAMEBUFFER, fbGenie);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
-        
-        genieShader.use();
-        
-        glUniform1i(glGetUniformLocation(genieShader.program, "height"), height);
-        glUniform1i(glGetUniformLocation(genieShader.program, "width"), width);
-        glUniform1f(glGetUniformLocation(genieShader.program, "anim"), anim);
-        
-        glBindTexture(GL_TEXTURE_2D, texMain);
-        glBindVertexArray(quadVAO);
-        
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        // Print to screen
-        */
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glfwSwapBuffers(m_window);
+
+        glBindFramebuffer(GL_FRAMEBUFFER, fbWithPanels);
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0, 0, 0, 0);
         
@@ -457,39 +296,58 @@ int Demo :: run() {
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texPage);
         glUniform1i(glGetUniformLocation(panelShader.program, "tex0"), 0);
+				glUniform1f(glGetUniformLocation(panelShader.program, "pageH"), pageHeight);
+				glUniform1f(glGetUniformLocation(panelShader.program, "height"), height);
+        glUniform1f(glGetUniformLocation(panelShader.program, "scroll"), anim);
 
-		glUniform1f(glGetUniformLocation(panelShader.program, "pageH"), pageHeight);
-		glUniform1f(glGetUniformLocation(panelShader.program, "height"), height);
-        glUniform1f(glGetUniformLocation(panelShader.program, "width"), width);
-        glUniform1f(glGetUniformLocation(panelShader.program, "anim"), anim);
+        glBindVertexArray(quadVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        frostShader.use();
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texWithPanels);
+        glUniform1i(glGetUniformLocation(frostShader.program, "tex0"), 0);
+				glUniform2f(glGetUniformLocation(frostShader.program, "resolution"), width, height);
+        
+        glBindVertexArray(quadVAO);
 
-        /*
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, texGenie);
-        glUniform1i(glGetUniformLocation(normalShader.program, "texture1"), 1);
-        */
+				const int iterations = 7;
+
+				for(int i = 0; i < iterations; i++) {
+					float radius = (iterations - i - 1) * anim;
+					glUniform2f(glGetUniformLocation(frostShader.program, "ksize"),
+							i % 2 == 0 ? radius : 0,
+							i % 2 == 0 ? 0 : radius
+					);
+					glDrawArrays(GL_TRIANGLES, 0, 6);
+				}
+       
+				// Print to screen
+				
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(0, 0, 0, 0);
+        
+        normalShader.use();
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texWithPanels);
+        glUniform1i(glGetUniformLocation(normalShader.program, "texDst"), 0);
+        glUniform1i(glGetUniformLocation(normalShader.program, "texSrc"), 0);
+        
         glBindVertexArray(quadVAO);
         
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        glfwSwapBuffers(m_window);
+
         glfwPollEvents();
     }
     while (!glfwWindowShouldClose(m_window));
     
     // Ternimate
     
-    glDeleteFramebuffers(1, &fbScaled);
-    glDeleteTextures(1, &texScaled);
-    glDeleteFramebuffers(1, &fbAdhered);
-    glDeleteTextures(1, &texAdhered);
-    glDeleteFramebuffers(1, &fbUnstuck);
-    glDeleteTextures(1, &texUnstuck);
-    glDeleteFramebuffers(1, &fbGenie);
-    glDeleteTextures(1, &texGenie);
-    glDeleteFramebuffers(1, &fbMain);
-    glDeleteTextures(1, &texMain);
-    glDeleteTextures(1, &texPage);
+    glDeleteFramebuffers(1, &fbWithPanels);
+    glDeleteTextures(1, &texWithPanels);
     glDeleteVertexArrays(1, &vertexArrayObject);
     glDeleteBuffers(1, &elementBufferObject);
     glDeleteBuffers(1, &vertexBufferObject);

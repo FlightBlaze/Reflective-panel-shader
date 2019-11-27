@@ -1,5 +1,6 @@
 #include "shader.h"
 #include <iostream>
+#include <stdlib.h>
 
 namespace sandbox {
 
@@ -27,6 +28,7 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
     }
     catch(std::ifstream::failure e) {
         std::cout << "File read error" << std::endl;
+				exit(1);
     }
     
     const GLchar* vShaderCode = vertexCode.c_str();
@@ -44,6 +46,7 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
     if(!success) {
         glGetShaderInfoLog(vert, 512, NULL, infoLog);
         std::cout << "Vertex shader compile time error\n" << infoLog << std::endl;
+				exit(1);
     }
     
     frag = glCreateShader(GL_FRAGMENT_SHADER);
@@ -54,6 +57,7 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
     if(!success) {
         glGetShaderInfoLog(frag, 512, NULL, infoLog);
         std::cout << "Fragment shader compile time error\n" << infoLog << std::endl;
+				exit(1);
     }    
     
     this->program = glCreateProgram();
@@ -65,6 +69,7 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
     if(!success) {
         glGetProgramInfoLog(this->program, 512, NULL, infoLog);
         std::cout << "Linking error\n" << infoLog << std::endl;
+				exit(1);
     }
     
     glDeleteShader(vert);

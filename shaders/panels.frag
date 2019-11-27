@@ -6,39 +6,42 @@ out vec4 color;
 uniform sampler2D tex0;
 uniform float pageH;
 uniform float height;
-uniform float width;
-uniform float anim;
+uniform float scroll;
 
-const float panelH = 0.075; // from 0 to 1
+// panel height from 0 to 1
+const float panelH = 0.075;
 
 float pages = pageH / height;
+float ratio = height / pageH;
 
 /*
 	get Y inside viewport using screen Y,
-	scroll position (from 0 to 1) and ratio
+	amount of pages, ratio and scroll
+	position
 */
-float viewY(float y, float scro, float ratio) {
-	return y * ratio + scro / pages
-		- ratio - scro;
+float viewY(float y) {
+	return y * ratio + scroll / pages
+		- ratio - scroll;
 }
 
 void main() {
 	vec2 ruv = UV;
-	float ratio = height / pageH;
 
 	// scrolling animation
-	ruv.y = viewY(UV.y, anim, ratio);
+	ruv.y = viewY(UV.y);
 
 	//bottom panel
 	if(UV.y <= panelH) {
-		float distance = panelH - UV.y;
+		/*
+			distance between panel top frame and
+			screen Y
+		*/
+		float dist = panelH - UV.y;
 
 		vec2 mirror = vec2(
 			UV.x,
 			viewY(
-				UV.y + distance * 2,
-				anim,
-				ratio
+				panelH + dist
 			)
 		);
 
