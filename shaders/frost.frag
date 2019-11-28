@@ -18,14 +18,30 @@ out vec4 color;
 
 uniform sampler2D tex0;
 uniform vec2 resolution;
-uniform vec2 ksize;
+uniform vec2 dir;
 
 // panel height from 0 to 1
 const float panelH = 0.075;
 
 vec4 blur5(vec2 direction) {
 
-	direction *= vec2(UV.y);
+	float topY = 1.0 - panelH;
+
+	// bottom panel
+	if(UV.y <= panelH) {
+		direction *= vec2(
+				UV.y / panelH - 1.0);
+	}
+
+	// top panel
+	else if(UV.y >= topY) {
+		direction *= vec2(
+				(topY - UV.y) / panelH);
+	}
+
+	else
+		return texture(tex0, UV);
+
 
 	/* these magic numbers are probably
 		 calculated using http://dev.theomader.com/
@@ -51,5 +67,5 @@ vec4 blur5(vec2 direction) {
 }
 
 void main() {
-	color = blur5(ksize);
+	color = blur5(dir);
 }

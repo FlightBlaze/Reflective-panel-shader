@@ -316,11 +316,15 @@ int Demo :: run() {
         
         glBindVertexArray(quadVAO);
 
+				// blur
+
 				const int iterations = 17;
 
 				for(int i = 0; i < iterations; i++) {
 					float radius = iterations - i - 1;
-					glUniform2f(glGetUniformLocation(frostShader.program, "ksize"),
+
+					// dir = direction
+					glUniform2f(glGetUniformLocation(frostShader.program, "dir"),
 							i % 2 == 0 ? radius : 0,
 							i % 2 == 0 ? 0 : radius
 					);
