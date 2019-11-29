@@ -11,6 +11,7 @@ CMakeFiles/shadersandbox.dir/demo.cc.o: third_party/stb_image/stb_image.h
 
 CMakeFiles/shadersandbox.dir/main.cc.o: demo.h
 CMakeFiles/shadersandbox.dir/main.cc.o: main.cc
+CMakeFiles/shadersandbox.dir/main.cc.o: shader.h
 
 CMakeFiles/shadersandbox.dir/shader.cc.o: shader.cc
 CMakeFiles/shadersandbox.dir/shader.cc.o: shader.h

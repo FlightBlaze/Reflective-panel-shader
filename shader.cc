@@ -27,7 +27,7 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
         fragmentCode = fShaderStream.str();     
     }
     catch(std::ifstream::failure e) {
-        std::cout << "File read error" << std::endl;
+        std::cerr << "File read error" << std::endl;
 				exit(1);
     }
     
@@ -56,7 +56,7 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
     glGetShaderiv(frag, GL_COMPILE_STATUS, &success);
     if(!success) {
         glGetShaderInfoLog(frag, 512, NULL, infoLog);
-        std::cout << "Fragment shader compile time error\n" << infoLog << std::endl;
+        std::cerr << "Fragment shader compile time error\n" << infoLog << std::endl;
 				exit(1);
     }    
     
@@ -68,7 +68,7 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
     glGetProgramiv(this->program, GL_LINK_STATUS, &success);
     if(!success) {
         glGetProgramInfoLog(this->program, 512, NULL, infoLog);
-        std::cout << "Linking error\n" << infoLog << std::endl;
+        std::cerr << "Linking error\n" << infoLog << std::endl;
 				exit(1);
     }
     
@@ -76,8 +76,9 @@ Shader :: Shader(const GLchar* vertexPath, const GLchar* fragmentPath) {
     glDeleteShader(frag);
 }
 
-void Shader :: use() {
+GLuint Shader :: use() {
     glUseProgram(this->program);
+		return this->program;
 }  
 
 } // end of namespace sandbox

@@ -23,8 +23,6 @@ cstdio
 -
 cmath
 -
-shader.h
-/home/blaze/User Experience — First Look/Reflective panel shader/shader.h
 third_party/stb_image/stb_image.h
 /home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.h
 glm/glm.hpp
@@ -35,6 +33,8 @@ glm/gtc/type_ptr.hpp
 -
 
 /home/blaze/User Experience — First Look/Reflective panel shader/demo.h
+shader.h
+/home/blaze/User Experience — First Look/Reflective panel shader/shader.h
 
 /home/blaze/User Experience — First Look/Reflective panel shader/shader.h
 string

@@ -11,13 +11,13 @@
 #include <cstdio>
 #include <cmath>
 
-#include "shader.h"
-
 #include "third_party/stb_image/stb_image.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+//#include <opencv2/opencv.hpp>
 
 static
 void key_callback(GLFWwindow*, int, int, int, int);
@@ -119,18 +119,7 @@ unsigned Demo :: createTexture(int width, int height) {
     return tex;
 }
 
-void Demo :: recreateSquareFramebuffer(unsigned &framebuffer, unsigned &texture, int width, int height) {
-    int nwidth = width, nheight = height;
-    
-    if(width > height)
-        nheight *= width / height;
-    else
-        nwidth *= height / width;
-    
-    recreateFramebuffer(framebuffer, texture, nwidth, nheight);
-}
-
-void Demo :: recreateFramebuffer(unsigned &framebuffer, unsigned &texture, int width, int height) {
+void Demo :: reallocFramebuffer(unsigned &framebuffer, unsigned &texture, int width, int height) {
     if(framebuffer != 0)
         glDeleteFramebuffers(1, &framebuffer);
     glGenFramebuffers(1, &framebuffer);
@@ -150,113 +139,99 @@ Demo :: Demo(int argc, char **argv):
     
 }
 
-Demo :: ~Demo() {
-}
+void Demo :: initGLFW() {
+    if (!glfwInit()) {
+			std::cerr << "Failed to initialize GLFW3\n";
+		}
 
-int Demo :: run() {
-    // Init
-    
-    if (!glfwInit())
-        return error("Failed to initialize GLFW3");
-    
     glfwSetErrorCallback(error_callback);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   
-		const int owidth = 360, oheight = 760;
-
-    m_window = glfwCreateWindow(owidth, oheight, "Demo", 0, 0);
+    m_window = glfwCreateWindow(defaultWidth, defaultHeight, "Demo", 0, 0);
     
     glfwSetKeyCallback(m_window, key_callback);
     glfwMakeContextCurrent(m_window);
     glfwSwapInterval(1);
-    
-    // Init GLEW
-    
+}
+
+void Demo :: initGLEW() {
     glewExperimental = GL_TRUE;
     
-    if (glewInit() != GLEW_OK)
-        return error("Failed to initialize GLEW");
+    if (glewInit() != GLEW_OK) {
+        std::cerr << "Failed to initialize GLEW\n";
+				exit(1);
+		}
+}
+
+/*
+	Switch framebuffer and clear
+*/
+void switchFramebuffer(GLuint fb) {
+	glBindFramebuffer(GL_FRAMEBUFFER, fb);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glClearColor(0, 0, 0, 0);
+}
+
+int Demo :: run() {
+		initGLFW(); 
+		initGLEW();
+
+		// Init OpenCV pixel buffer
+		
+		// cv::Mat pixels( height, width, CV_8UC3 );
     
     // Enable debug 
     
     glEnable(GL_DEBUG_OUTPUT);
     glDebugMessageCallback(MessageCallback, 0);
    
-    // Create buffers and array
+    // Arrays and buffers
     
-    GLuint vertexBufferObject, vertexArrayObject, elementBufferObject;
-    
+    unsigned int vertexArrayBuffer, vertexBufferObject;
     glGenVertexArrays(1, &vertexArrayObject);
     glGenBuffers(1, &vertexBufferObject);
-    glGenBuffers(1, &elementBufferObject);
-    
-    // Copy vertices
     glBindVertexArray(vertexArrayObject);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject); 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); 
-    
-    // Copy indices
-    
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBufferObject);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    
-    // Set pointers to vertex attributes
-    
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0); // Position
-    glEnableVertexAttribArray(0);
-    
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3* sizeof(GLfloat))); // Color
-    glEnableVertexAttribArray(1);
-    
-    glVertexAttribPointer(2, 2, GL_FLOAT,GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat))); // UVs
-    glEnableVertexAttribArray(2);
-    
-    // Unbind buffers and array
-    
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-    
-    // Make textures
-    
-    GLuint texture0 = loadImage("./resources/photo1.png");
-    
-    GLuint texPage;
-    GLint pageWidth, pageHeight, pageBytesPerPixel;
-    texPage = loadImageAndPutDetails(
-		"./resources/page.png",
-		&pageWidth,
-		&pageHeight,
-		&pageBytesPerPixel
-    );
-    
-    // screen VAO
-    
-    unsigned int quadVAO, quadVBO;
-    glGenVertexArrays(1, &quadVAO);
-    glGenBuffers(1, &quadVBO);
-    glBindVertexArray(quadVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
     glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+		 
+    // Make textures
+    
+    GLuint texture0 = loadImage("./resources/photo1.png");
    
+		// Page texture & detauls
+
+    GLuint texPage;
+
+    GLint pageWidth,
+					pageHeight,
+					pageBytesPerPixel;
+
+    texPage = loadImageAndPutDetails(
+			"./resources/page.png",
+			&pageWidth,
+			&pageHeight,
+			&pageBytesPerPixel
+    );
+    
     // Load shaders
 		
-    Shader panelShader(
+    panelShader = new Shader(
         "./shaders/panels.vert",
         "./shaders/panels.frag"
     );
 		
-		Shader frostShader(
+		frostShader = new Shader(
         "./shaders/frost.vert",
         "./shaders/frost.frag"
     );
 		
-		Shader normalShader(
+		normalShader = new Shader(
         "./shaders/blending/normal.vert",
         "./shaders/blending/normal.frag"
     );
@@ -268,55 +243,55 @@ int Demo :: run() {
 
     // Main cycle
     
-    int rwidth = 0, rheight = 0;
+    int recentWidth,
+				recentHeight;
     
     do {
         int width, height;
         
         glfwGetFramebufferSize(m_window, &width, &height);
         
-        // Resize textures
+        // Create or resize textures
         
-        if(height != rheight || width != rwidth) {
-         
-            rheight = height;
-            rwidth = width;
+        if(height != recentHeight || width != recentWidth) {
+            recentHeight = height;
+            recentWidth = width;
             
-            recreateFramebuffer(fbWithPanels, texWithPanels, width, height);
+            reallocFramebuffer(fbWithPanels, texWithPanels, width, height);
         }
-        
-        glViewport(0, 0, width, height);
-        
-        GLfloat anim = (sin(glfwGetTime()) / 2) + 0.5;
        
+				// Setup viewport
+
+				glViewport(0, 0, width, height);
+        glBindVertexArray(vertexArrayObject);
+
+        GLfloat anim = (sin(glfwGetTime()) / 2) + 0.5;
+				GLuint program;
+
         glfwSwapBuffers(m_window);
+        glfwPollEvents();
+        
+				// Panel shader
 
-        glBindFramebuffer(GL_FRAMEBUFFER, fbWithPanels);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
+				switchFramebuffer(fbWithPanels);
+				program = this->panelShader->use();
         
-        panelShader.use();
-        
-        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texPage);
-        glUniform1i(glGetUniformLocation(panelShader.program, "tex0"), 0);
-				glUniform1f(glGetUniformLocation(panelShader.program, "pageH"), pageHeight);
-				glUniform1f(glGetUniformLocation(panelShader.program, "height"), height);
-        glUniform1f(glGetUniformLocation(panelShader.program, "scroll"), anim);
-
-        glBindVertexArray(quadVAO);
+        glUniform1i(glGetUniformLocation(program, "tex0"), 0);
+				glUniform1f(glGetUniformLocation(program, "pageH"), pageHeight);
+				glUniform1f(glGetUniformLocation(program, "height"), height);
+        glUniform1f(glGetUniformLocation(program, "scroll"), anim);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-        
-        frostShader.use();
-        
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texWithPanels);
-        glUniform1i(glGetUniformLocation(frostShader.program, "tex0"), 0);
-				glUniform2f(glGetUniformLocation(frostShader.program, "resolution"), owidth, oheight);
-        
-        glBindVertexArray(quadVAO);
+      
+				// Frost shader
 
-				// blur
+				program = this->frostShader->use();
+        
+        glBindTexture(GL_TEXTURE_2D, texWithPanels);
+        glUniform1i(glGetUniformLocation(program, "tex0"), 0);
+				glUniform2f(glGetUniformLocation(program, "resolution"), defaultWidth, defaultHeight);
+        
+				// frost (progressive blur)
 
 				const int iterations = 17;
 
@@ -324,7 +299,7 @@ int Demo :: run() {
 					float radius = iterations - i - 1;
 
 					// dir = direction
-					glUniform2f(glGetUniformLocation(frostShader.program, "dir"),
+					glUniform2f(glGetUniformLocation(program, "dir"),
 							i % 2 == 0 ? radius : 0,
 							i % 2 == 0 ? 0 : radius
 					);
@@ -333,41 +308,36 @@ int Demo :: run() {
        
 				// Print to screen
 				
-				glBindFramebuffer(GL_FRAMEBUFFER, 0);
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(0, 0, 0, 0);
+				switchFramebuffer(0);
+				program = this->normalShader->use();
         
-        normalShader.use();
-        
-        glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texWithPanels);
-        glUniform1i(glGetUniformLocation(normalShader.program, "texDst"), 0);
-        glUniform1i(glGetUniformLocation(normalShader.program, "texSrc"), 0);
-        
-        glBindVertexArray(quadVAO);
-        
+        glUniform1i(glGetUniformLocation(program, "texSrc"), 0);
         glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        glfwPollEvents();
     }
     while (!glfwWindowShouldClose(m_window));
-    
-    // Ternimate
-    
-    glDeleteFramebuffers(1, &fbWithPanels);
-    glDeleteTextures(1, &texWithPanels);
-    glDeleteVertexArrays(1, &vertexArrayObject);
-    glDeleteBuffers(1, &elementBufferObject);
-    glDeleteBuffers(1, &vertexBufferObject);
-    
-    glfwDestroyWindow(m_window);
-    glfwTerminate();
     
     return 0;
 }
 
-    
+Demo :: ~Demo() {
+	delete panelShader;
+	delete frostShader;
+	delete normalShader;
+/*		
+  glDeleteFramebuffers(1, &fbWithPanels);
+  glDeleteTextures(1, &texWithPanels);
+*/
+  glDeleteVertexArrays(1, &vertexArrayObject);
+  glDeleteBuffers(1, &elementBufferObject);
+  glDeleteBuffers(1, &vertexBufferObject);
+
+	glfwDestroyWindow(m_window);
+  glfwTerminate();
+}
+
 } // end namespace sandbox
+
 
 void error_callback(int error, const char* description)
  {

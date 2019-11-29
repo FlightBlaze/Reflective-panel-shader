@@ -12,7 +12,7 @@ namespace sandbox {
 struct Shader {
     Shader(const GLchar*, const GLchar*);
     GLuint program;
-    void use();
+    GLuint use();
 };
 
 } // end of namespace sandbox
