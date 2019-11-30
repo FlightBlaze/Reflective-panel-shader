@@ -6,6 +6,7 @@
 
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <string>
 #include <GL/gl.h>
 #include <cstdlib>
 #include <cstdio>
@@ -17,7 +18,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-//#include <opencv2/opencv.hpp>
+#include <opencv2/opencv.hpp>
 
 static
 void key_callback(GLFWwindow*, int, int, int, int);
@@ -44,14 +45,6 @@ MessageCallback(
 
 namespace sandbox {
 
-GLfloat vertices[] = {
-     // Position          // Color            // UVs
-     1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top right
-     1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // Bottom right
-    -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // Bottom left
-    -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // Top left
-};
-
 GLfloat quadVertices[] = {
     // Position    // UV
    -1.0f,   1.0f,  0.0f, 1.0f,
@@ -61,11 +54,6 @@ GLfloat quadVertices[] = {
    -1.0f,   1.0f,  0.0f, 1.0f,
     1.0f,  -1.0f,  1.0f, 0.0f,
     1.0f,   1.0f,  1.0f, 1.0f
-};
-
-const GLuint indices[] = {
-    0, 1, 3,
-    1, 2, 3
 };
 
 unsigned Demo :: loadImageAndPutDetails(             
@@ -133,10 +121,63 @@ void Demo :: reallocFramebuffer(unsigned &framebuffer, unsigned &texture, int wi
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+void Demo :: parseArguments() {
+		for(int i = 0; i < m_argc; i++) {
+			
+		}
+}
+
 Demo :: Demo(int argc, char **argv):
     m_argc(), m_argv() {
+
+		parseArguments();
     
+		initGLFW(); 
+		initGLEW();
+
+    // Enable debug 
     
+    glEnable(GL_DEBUG_OUTPUT);
+    glDebugMessageCallback(MessageCallback, 0);
+   
+    // Arrays and buffers
+    
+    unsigned int vertexArrayBuffer, vertexBufferObject;
+    glGenVertexArrays(1, &vertexArrayObject);
+    glGenBuffers(1, &vertexBufferObject);
+    glBindVertexArray(vertexArrayObject);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+		 
+		// Page texture & details
+		
+    this->texPage = loadImageAndPutDetails(
+			"./resources/page.png",
+			&this->pageWidth,
+			&this->pageHeight,
+			&this->pageBytesPerPixel
+    );
+    
+    // Load shaders
+		
+    panelShader = new Shader(
+        "./shaders/panels.vert",
+        "./shaders/panels.frag"
+    );
+		
+		frostShader = new Shader(
+        "./shaders/frost.vert",
+        "./shaders/frost.frag"
+    );
+		
+		printShader = new Shader(
+        "./shaders/print.vert",
+        "./shaders/print.frag"
+    );
 }
 
 void Demo :: initGLFW() {
@@ -175,83 +216,38 @@ void switchFramebuffer(GLuint fb) {
 }
 
 int Demo :: run() {
-		initGLFW(); 
-		initGLEW();
+		const int virtualWidth = this->defaultWidth * this->scale,
+						virtualHeight = this->defaultHeight * this->scale;
 
-		// Init OpenCV pixel buffer
-		
-		// cv::Mat pixels( height, width, CV_8UC3 );
-    
-    // Enable debug 
-    
-    glEnable(GL_DEBUG_OUTPUT);
-    glDebugMessageCallback(MessageCallback, 0);
-   
-    // Arrays and buffers
-    
-    unsigned int vertexArrayBuffer, vertexBufferObject;
-    glGenVertexArrays(1, &vertexArrayObject);
-    glGenBuffers(1, &vertexBufferObject);
-    glBindVertexArray(vertexArrayObject);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferObject);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-		 
-    // Make textures
-    
-    GLuint texture0 = loadImage("./resources/photo1.png");
-   
-		// Page texture & detauls
+		// Init OpenCV
 
-    GLuint texPage;
+		cv::VideoWriter outputVideo;
+		outputVideo.open(
+			"output.avi",
+			0x34363248, // H264 (fourcc)
+			this->framerate,
+			cv::Size(
+				virtualWidth,
+				virtualHeight
+			),
+			true
+		);
 
-    GLint pageWidth,
-					pageHeight,
-					pageBytesPerPixel;
+		// Main cycle
 
-    texPage = loadImageAndPutDetails(
-			"./resources/page.png",
-			&pageWidth,
-			&pageHeight,
-			&pageBytesPerPixel
-    );
-    
-    // Load shaders
-		
-    panelShader = new Shader(
-        "./shaders/panels.vert",
-        "./shaders/panels.frag"
-    );
-		
-		frostShader = new Shader(
-        "./shaders/frost.vert",
-        "./shaders/frost.frag"
-    );
-		
-		normalShader = new Shader(
-        "./shaders/blending/normal.vert",
-        "./shaders/blending/normal.frag"
-    );
-
-		// Framebuffers and textures
-    
-    unsigned int fbWithPanels = 0,
-                texWithPanels = 0;
-
-    // Main cycle
-    
     int recentWidth,
-				recentHeight;
+				recentHeight,
+				frame = 0;
     
     do {
         int width, height;
         
-        glfwGetFramebufferSize(m_window, &width, &height);
-        
-        // Create or resize textures
+        // glfwGetFramebufferSize(m_window, &width, &height);
+       
+				width = virtualWidth;
+				height = virtualHeight;
+
+				// Create or resize textures
         
         if(height != recentHeight || width != recentWidth) {
             recentHeight = height;
@@ -265,12 +261,14 @@ int Demo :: run() {
 				glViewport(0, 0, width, height);
         glBindVertexArray(vertexArrayObject);
 
-        GLfloat anim = (sin(glfwGetTime()) / 2) + 0.5;
 				GLuint program;
+        GLfloat anim; //(sin(glfwGetTime() / 2) / 2) + 0.5;
 
         glfwSwapBuffers(m_window);
         glfwPollEvents();
         
+				anim = (float)frame / this->framerate / 8.0;
+
 				// Panel shader
 
 				switchFramebuffer(fbWithPanels);
@@ -279,7 +277,7 @@ int Demo :: run() {
         glBindTexture(GL_TEXTURE_2D, texPage);
         glUniform1i(glGetUniformLocation(program, "tex0"), 0);
 				glUniform1f(glGetUniformLocation(program, "pageH"), pageHeight);
-				glUniform1f(glGetUniformLocation(program, "height"), height);
+				glUniform1f(glGetUniformLocation(program, "height"), defaultHeight);
         glUniform1f(glGetUniformLocation(program, "scroll"), anim);
         glDrawArrays(GL_TRIANGLES, 0, 6);
       
@@ -309,25 +307,54 @@ int Demo :: run() {
 				// Print to screen
 				
 				switchFramebuffer(0);
-				program = this->normalShader->use();
+				program = this->printShader->use();
         
         glBindTexture(GL_TEXTURE_2D, texWithPanels);
-        glUniform1i(glGetUniformLocation(program, "texSrc"), 0);
+        glUniform1i(glGetUniformLocation(program, "tex"), 0);
+        glUniform1f(glGetUniformLocation(program, "scale"), scale);
+
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
+				// Write pixels
+				
+				cv::Mat pixels(height, width, CV_8UC3);
+				
+				glBindTexture(GL_TEXTURE_2D, texWithPanels);
+				glGetTexImage(GL_TEXTURE_2D, 0, GL_RGB, GL_UNSIGNED_BYTE, pixels.data);
+
+				// opencv readable matrix
+				cv::Mat cv_pixels(height, width, CV_8UC3);
+
+				// convert
+				
+				
+				for(int y=0; y<height; y++) for(int x=0; x<width; x++) {
+						cv_pixels.at<cv::Vec3b>(y,x)[2] = pixels.at<cv::Vec3b>(height-y-1,x)[0];
+						cv_pixels.at<cv::Vec3b>(y,x)[1] = pixels.at<cv::Vec3b>(height-y-1,x)[1];
+						cv_pixels.at<cv::Vec3b>(y,x)[0] = pixels.at<cv::Vec3b>(height-y-1,x)[2];
+				}
+
+				// put frame
+				outputVideo << cv_pixels;
+
+				frame++;
     }
     while (!glfwWindowShouldClose(m_window));
-    
+   
+		outputVideo.release();
+
     return 0;
 }
 
 Demo :: ~Demo() {
 	delete panelShader;
 	delete frostShader;
-	delete normalShader;
-/*		
+	delete printShader;
+		
   glDeleteFramebuffers(1, &fbWithPanels);
   glDeleteTextures(1, &texWithPanels);
-*/
+  glDeleteTextures(1, &texPage);
+
   glDeleteVertexArrays(1, &vertexArrayObject);
   glDeleteBuffers(1, &elementBufferObject);
   glDeleteBuffers(1, &vertexBufferObject);

@@ -8,6 +8,7 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(PkgConfig REQUIRED)
 find_package(Threads REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(OpenCV REQUIRED)
 find_package(GLEW REQUIRED)
 
 pkg_check_modules(glfw3 REQUIRED glfw3)
@@ -26,6 +27,7 @@ target_include_directories(shadersandbox PRIVATE .)
 target_link_libraries(shadersandbox
     Threads::Threads
     OpenGL::OpenGL
+		${OpenCV_LIBS}
     GLEW::GLEW
     glfw
     ${GLM_LIBRARIES}

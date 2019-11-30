@@ -12,6 +12,7 @@ set(CMAKE_C_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "."
+  "/usr/include/opencv4"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/blaze/User Experience — First Look/Reflective panel shader/demo.cc" "/home/blaze/User Experience — First Look/Reflective panel shader/CMakeFiles/shadersandbox.dir/demo.cc.o"
@@ -23,6 +24,7 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "."
+  "/usr/include/opencv4"
   )
 
 # Targets to which this target links.

@@ -11,7 +11,21 @@ class Demo {
     int m_argc;
     char **m_argv;
     GLFWwindow* m_window = 0;
-    
+		bool m_record = false;
+
+    unsigned vertexArrayObject,
+						vertexBufferObject,
+						elementBufferObject;
+
+		unsigned texWithPanels,
+						 fbWithPanels;
+
+		unsigned texPage;
+
+    int pageWidth,
+				pageHeight,
+				pageBytesPerPixel;
+
 		unsigned loadImageAndPutDetails(
 			const char* path,
 			int *width,
@@ -24,6 +38,8 @@ class Demo {
     
     void reallocFramebuffer(unsigned&, unsigned&, int, int);
 
+		void parseArguments();
+
 		void initGLFW();
 		void initGLEW();
 
@@ -34,16 +50,15 @@ public:
 
 		Shader *panelShader;
 		Shader *frostShader;
-		Shader *normalShader;
-
-    unsigned vertexArrayObject,
-						vertexBufferObject,
-						elementBufferObject;
+		Shader *printShader;
 
     Demo(int, char**);
     ~Demo();
     
-    int run();
+		float framerate = 60.0;
+		float scale = 1.0;
+		
+		int run();
     
 };
     
