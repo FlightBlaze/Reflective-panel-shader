@@ -59,13 +59,13 @@ vec4 panel(vec2 uv) {
 			tex0,
 			uv
 		);
-
+/*
 		// foreground
 		col = normal(vec4(0.5), col);
 
 		// saturate background
 		col.rgb = saturation(col.rgb, 1.75);
-
+*/
 		return col;
 }
 
@@ -74,6 +74,10 @@ void main() {
 
 	// scrolling animation
 	ruv.y = viewY(UV.y);
+
+	color = texture(tex0, ruv);
+
+	return;
 
 	//bottom panel
 	if(UV.y <= panelH) {

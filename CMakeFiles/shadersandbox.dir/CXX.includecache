@@ -40,6 +40,20 @@ opencv2/opencv.hpp
 shader.h
 /home/blaze/User Experience — First Look/Reflective panel shader/shader.h
 
+/home/blaze/User Experience — First Look/Reflective panel shader/main.cc
+iostream
+-
+demo.h
+/home/blaze/User Experience — First Look/Reflective panel shader/demo.h
+
+/home/blaze/User Experience — First Look/Reflective panel shader/shader.cc
+shader.h
+/home/blaze/User Experience — First Look/Reflective panel shader/shader.h
+iostream
+-
+stdlib.h
+-
+
 /home/blaze/User Experience — First Look/Reflective panel shader/shader.h
 string
 -

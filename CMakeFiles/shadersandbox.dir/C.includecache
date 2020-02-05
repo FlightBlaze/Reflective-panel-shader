@@ -6,3 +6,39 @@
 
 #IncludeRegexTransform: 
 
+/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.c
+stb_image.h
+/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.h
+
+/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.h
+stb_image.h
+/home/blaze/User Experience — First Look/Reflective panel shader/third_party/stb_image/stb_image.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
